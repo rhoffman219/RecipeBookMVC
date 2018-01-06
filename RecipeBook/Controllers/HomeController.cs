@@ -10,6 +10,8 @@ namespace RecipeBook.Controllers
 {
     public class HomeController : Controller
     {
+        const string SessionKeyName = "FirstName";
+
         public IActionResult Index()
         {
             return View();
@@ -29,8 +31,7 @@ namespace RecipeBook.Controllers
             return View();
         }
 
-        public IActionResult Error()
-        {
+        public IActionResult Error()        {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

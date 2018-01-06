@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RecipeBook.Models;
+using RecipeBookMVC.Models;
 
 namespace RecipeBook.Data
 {
@@ -23,4 +24,23 @@ namespace RecipeBook.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
+
+    public class RecipeDbContext : DbContext
+    {
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<RecipeCategory> Categories { get; set; }
+
+        public RecipeDbContext(DbContextOptions<RecipeDbContext> options)
+            : base(options)
+        { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<RecipeCategory>()
+                .HasKey(c => new { c.RecipeID, c.CategoryID });
+
+        }
+    }
+
 }
